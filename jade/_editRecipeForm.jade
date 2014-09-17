@@ -1,0 +1,41 @@
+mixin cgroup(name, val)
+	.control-group
+		label.control-label(for!=name)= name
+		input.form-control(id!=name, type='text', value!=val)
+
+form#editRecipeForm.form-horizontal
+	+cgroup("Title", title)
+	+cgroup("Author", author)
+	+cgroup("Serves", serves)
+	+cgroup("Description", desc)
+	+cgroup("Time", time)
+	.textareaList
+		h3 Ingredients
+		each i in ingredients
+			.input-group
+				textarea(form='editRecipeForm')= i
+	.textareaList
+		h3 Directions
+		each d in directions
+			.input-group
+				textarea(form='editRecipeForm')= d
+	button(type="submit") submit
+
+
+	//- .input-group.input-group-lg
+	//- 	label(for='title') Title
+	//- 	input#title(type="text", value!=title)
+	//- .input-group
+	//- 	input(type="text", value!=author)
+	//- .input-group
+	//- 	input(type="text", value!=serves)
+	//- .input-group
+	//- 	input(type="text", value!=desc)
+	//- .input-group
+	//- 	input(type="text", value!=time)
+	//- each i in ingredients
+	//- 	.input-group
+	//- 		textarea(form='editRecipeForm', cols= 60, rows=1)= i
+	//- each d in directions
+	//- 	.input-group
+	//- 		textarea(form='editRecipeForm', cols="100%")= d

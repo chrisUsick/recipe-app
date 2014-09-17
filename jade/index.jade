@@ -1,0 +1,49 @@
+doctype html
+html
+  head
+  meta(name="viewport", content="width=device-width, initial-scale=1")
+  script(type="text/javascript", src="./runtime.js")
+  script(type="text/javascript", src="./_editRecipeForm.js")
+  script(type="text/javascript", src="../js/require.js")
+  script(type="text/javascript", src="../js/config.js")
+  script(type="text/javascript", src="./parsers.js")
+
+  script(type="text/javascript", src="../js/main.js")
+
+  //- bootstrap stuff
+  link(rel="stylesheet", type="text/css", href="../css/bootstrap.min.css")
+  script(type="text/javascript", src="../js/jquery.js")
+  script(type="text/javascript", src="../js/bootstrap.min.js")
+    //- require(['main'])
+
+  link(rel="stylesheet", type='text/css', href="../css/styles.css")
+
+  body
+    .container
+      nav.navbar.navbar-default(role="navigation")
+        .container-fluid
+          .navbar-header
+            button.navbar-toggle.collapsed(type="button",data-toggle="collapse", data-target="#main-nav")
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+
+            a.navbar-brand(href="#home") RecipeSite
+
+          .collapse.navbar-collapse#main-nav
+            ul.nav.navbar-nav
+              li
+                a#allRecipes(href="#allRecipes") All RecipeSite
+              form#omnibox.navbar-form.navbar-center
+                .form-group
+                  input.form-control(type="text", placeholder="upload or search")
+                button.btn.btn-default(type="submit") submit
+    .container#view-container
+      #home
+        h1 wellcome to RecipeSite!
+        p paste a url into the search bar to upload a recipe or enter text and search your saved recipes.
+      #editRecipe
+      #allRecipes
+        h1 all recipes
+      #recipe
