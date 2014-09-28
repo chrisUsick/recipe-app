@@ -8,6 +8,14 @@ recipe Site has a simple set of functionallity:
 	- store them on local storage for option offline usage
 	- share recipe via evernote
 
+# install
+git clone https://github.com/chrisUsick/recipe-app.git
+cd recipe-app
+npm install
+grunt 
+
+Then go to chrome and load the unpackaged extension
+
 # competing products
 	- the main competitor is probably evernote
 	- the recipe sites that this extension will be scraping are also competitors
