@@ -1,9 +1,14 @@
-﻿define(["require", "exports", "Foo", "jquery", "Store", "Parser", "Nav", 'EditRecipeForm'], function(require, exports, Foo, $, Store, Parser, Nav, EditRecipeForm) {
+﻿define(["require", "exports", "Foo", "jquery", "Store", "Parser", "Nav", "RecipeMvc"], function(require, exports, Foo, $, Store, Parser, Nav, Mvc) {
     
 
     var App = (function () {
         function App() {
             this.nav = new Nav("#view-container div");
+            this.parentActions = {
+                edit: $("div#editRecipe")[0],
+                show: $("div#recipe")[0],
+                summarize: $("div#allRecipes")[0]
+            };
             this.store = new Store.RecipeStore(new Store.ChromeAccessor());
             this.store.getRecipes(function (items) {
                 console.log(items, "recipes");
@@ -11,6 +16,7 @@
             Parser.init();
 
             this.omniboxInit();
+            this.allRecipes();
         }
         App.prototype.run = function () {
             var foo = new Foo();
@@ -26,10 +32,34 @@
                 if (data.search(' ') == -1) {
                     Parser.parse(data, function (recipe) {
                         _this.nav.navigateTo("#editRecipe");
-                        _this.ERF = new EditRecipeForm(recipe, _this.store);
+                        var r = new Mvc.RecipeMvc(_this.parentActions, true, null, recipe);
+                        r.setShowCallback(function () {
+                            _this.nav.navigateTo("#recipe");
+                        });
                     });
                 } else {
                 }
+            });
+        };
+        App.prototype.allRecipes = function () {
+            var _this = this;
+            this.nav.addCallback("#allRecipes", function () {
+                $("div#allRecipes").children().remove();
+
+                _this.store.getRecipes(function (recipes) {
+                    console.log(recipes);
+                    recipes.forEach(function (rec, i) {
+                        var r = new Mvc.RecipeMvc(_this.parentActions, false, null, rec);
+                        r.setShowCallback(function () {
+                            _this.nav.navigateTo("#recipe");
+                        });
+                        r.summarize(_this.parentActions.summarize);
+                    });
+                });
+            });
+        };
+        App.prototype.deleteRecipe = function () {
+            $(".delRecipe").click(function (e) {
             });
         };
         return App;

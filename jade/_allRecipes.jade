@@ -1,0 +1,12 @@
+.recipeList
+	each r in recipes
+		.row
+			.col-sm-10
+				h3= r.title
+			.col-sm-2
+				p= r.serves
+		.row
+			.col-sm-10
+				p= r.desc
+			.col-sm-2
+				span.delRecipe X

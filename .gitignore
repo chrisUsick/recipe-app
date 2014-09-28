@@ -1,5 +1,5 @@
-build/*.js
-build/*.map
+build/**/*.js
+build/**/*.map
 src/*.js
 src/*.map
 obj/

@@ -9,12 +9,12 @@ form#editRecipeForm.form-horizontal
 	+cgroup("Serves", serves)
 	+cgroup("Description", desc)
 	+cgroup("Time", time)
-	.textareaList
+	.textareaList.ingredientList
 		h3 Ingredients
 		each i in ingredients
 			.input-group
 				textarea(form='editRecipeForm')= i
-	.textareaList
+	.textareaList.directionList
 		h3 Directions
 		each d in directions
 			.input-group

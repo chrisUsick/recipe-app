@@ -3,12 +3,15 @@
         function Nav(selector) {
             var _this = this;
             this.views = {};
+            this.callbacks = {};
             this.selector = selector;
 
             var hash = location.hash != "" && location.hash != undefined ? location.hash.match(/#[\w]+/)[0] : "";
             $(this.selector).each(function (i, e) {
                 var id = "#" + e.getAttribute("id");
                 _this.views[id] = e;
+
+                _this.callbacks[id] = [];
 
                 if (hash != "" && hash != null) {
                     if (id == hash) {
@@ -30,12 +33,18 @@
 
             $(window).on("hashchange", function (e) {
                 var hash = e.target['location'].hash;
-                console.log(hash, _this.views);
+                console.log(hash, _this.callbacks, _this.views);
 
                 $(_this.currentView).hide();
 
                 _this.currentView = _this.views[hash];
                 $(_this.currentView).show();
+
+                if (_this.callbacks[hash]) {
+                    _this.callbacks[hash].forEach(function (fn) {
+                        fn();
+                    });
+                }
             });
         }
         Nav.prototype.navigateTo = function (hashLoc) {
@@ -46,6 +55,9 @@
             } else {
                 return;
             }
+        };
+        Nav.prototype.addCallback = function (location, cb) {
+            this.callbacks[location].push(cb);
         };
         return Nav;
     })();

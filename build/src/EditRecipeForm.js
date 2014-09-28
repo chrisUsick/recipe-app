@@ -13,9 +13,11 @@
         }
         return Recipe;
     })();
+
     var EditRecipeForm = (function () {
-        function EditRecipeForm(data, storeAccessor) {
-            this.store = storeAccessor;
+        function EditRecipeForm(data, formCallback) {
+            this.formCallback = formCallback;
+            this.url = data.url;
             this.reset(data);
         }
         EditRecipeForm.prototype.reset = function (data) {
@@ -26,8 +28,12 @@
             $(this.html).submit(function (ev) {
                 ev.preventDefault();
                 console.log('form submited');
-                _this.store.addRecipe(_this.formToRecipe());
+                _this.formCallback(_this.formToRecipe());
+
+                delete _this;
             });
+            var width = innerWidth / 8;
+            $("textarea", this.html).attr("cols", "" + width);
         };
 
         EditRecipeForm.prototype.formToRecipe = function () {
@@ -39,20 +45,28 @@
                 } else if (e.parents().hasClass('directionList')) {
                     r.directions.push(e.val());
                 } else {
+                    console.log(e.prop("id"));
                     switch (e.prop('id')) {
                         case 'Title':
                             r.title = e.val();
+                            break;
                         case 'Description':
                             r.desc = e.val();
-                        case 'Autor':
+                            break;
+                        case 'Author':
                             r.author = e.val();
+                            break;
                         case 'Serves':
                             r.serves = e.val();
+                            break;
                         case 'Time':
                             r.time = e.val();
+                            break;
                     }
                 }
             });
+
+            r.url = this.url;
             console.log(r);
             return r;
         };

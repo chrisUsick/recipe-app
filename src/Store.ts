@@ -48,6 +48,9 @@ export interface SearchCriteria {
 * chrome.storage.local (or .synced) doesn't need JSON.
 */
 export class RecipeStore {
+    /**
+    * @param lStore: local storage accessor
+    */
     constructor(public lStore: IStoreAccessor) {
         //validate "recipes" key/value pair in localstorage
         
@@ -59,32 +62,39 @@ export class RecipeStore {
         })
     }
     addRecipe(rec: IRecipe) {
-        this.lStore.getItem("recipes", (recs) => {
+        //this.deleteRecipe(rec.url)
+        this.lStore.getItem("recipes", (recs:IRecipe[]) => {
+            
+            recs = recs.filter((v, i) => {
+                return v.url != rec.url 
+            })
             recs.push(rec)
             this.lStore.setItem("recipes", recs)
         })
         
     }
-    //getRecipe(criteria: SearchCriteria) {
-    //    var recs = this.lStore.getItem("recipes")
-    //    var res = []
-    //    recs.forEach((rec, i) => {
-    //        if (criteria.url) {
-    //            res.push(rec)
-    //            return;
-    //        }
-    //        if (criteria.text) {
-    //            for (var p in rec) {
-    //                if (p != "url") {
-    //                    // String.search returns -1 if not found
-    //                    if (rec[p].search(criteria.text) >= 0) {
-    //                        res.push(rec)
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    })
-    //}
+    getRecipe(criteria: SearchCriteria, callback:(recs:IRecipe[]) => void) {
+        var res:IRecipe[] = []
+        this.lStore.getItem("recipes", (recs: IRecipe[]) => {
+            recs.forEach((rec, i) => {
+                if (criteria.url == rec.url) {
+                    res.push(rec)
+                    return;
+                }
+                if (criteria.text) {
+                    for (var p in rec) {
+                        if (p != "url") {
+                            // String.search returns -1 if not found
+                            if (rec[p].search(criteria.text) >= 0) {
+                                res.push(rec)
+                            }
+                        }
+                    }
+                }
+                callback(res)
+            })
+        })
+    }
     getRecipes(callback:(items:IRecipe[]) => void) {
         return this.lStore.getItem("recipes", callback)
     }
@@ -101,5 +111,17 @@ export class RecipeStore {
     //    this.lStore.setItem(key, JSON.stringify(val))
     //}
 
+    deleteRecipe(url: string) {
+        this.getRecipes((items) => {
+            var matches = []
+
+            // filter out null values
+            items = items.filter((v, i) => {
+                return (v.url != url)
+            })
+            this.lStore.setItem("recipes", items)
+        })
+        
+    }
 
 }

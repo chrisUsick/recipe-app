@@ -7,6 +7,7 @@ import IRecipe = require("IRecipe")
 import Parser = require("Parser")
 import Nav = require("Nav")
 import EditRecipeForm = require('EditRecipeForm')
+import Mvc = require("RecipeMvc")
 // comment
 
 //
@@ -14,7 +15,12 @@ import EditRecipeForm = require('EditRecipeForm')
 class App {
     store: Store.RecipeStore
     nav = new Nav("#view-container div")
-    ERF:EditRecipeForm
+    ERF: EditRecipeForm
+    private parentActions: Mvc.ActionParents = {
+        edit: $("div#editRecipe")[0],
+        show: $("div#recipe")[0],
+        summarize: $("div#allRecipes")[0]
+    }
     constructor() {
         this.store = new Store.RecipeStore(new Store.ChromeAccessor())
         this.store.getRecipes((items) => {
@@ -26,6 +32,7 @@ class App {
         //})
 
         this.omniboxInit()
+        this.allRecipes()
     }
     run() {
         var foo = new Foo()
@@ -43,12 +50,38 @@ class App {
                 // data is url
                 Parser.parse(data, (recipe) => {
                     this.nav.navigateTo("#editRecipe")
-                    this.ERF = new EditRecipeForm(recipe, this.store)
+                    var r = new Mvc.RecipeMvc(this.parentActions, true, null, recipe)
+                    r.setShowCallback(() => {
+                        this.nav.navigateTo("#recipe")
+                    })
                 })
             } else {
                 // data is search text
                 // do nothing for now
             }
+        })
+    }
+    allRecipes() {
+        this.nav.addCallback("#allRecipes", () => {
+            // clear div
+            $("div#allRecipes").children().remove()
+            // run allRecipes view
+            this.store.getRecipes((recipes) => {
+                console.log(recipes)
+                recipes.forEach((rec, i) => {
+                    var r = new Mvc.RecipeMvc(this.parentActions, false, null, rec)
+                    r.setShowCallback(() => {
+                        this.nav.navigateTo("#recipe")
+                    })
+                    r.summarize(this.parentActions.summarize)
+                })
+
+            })
+        })
+    }
+    deleteRecipe() {
+        $(".delRecipe").click((e) => {
+
         })
     }
 }

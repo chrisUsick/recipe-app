@@ -38,16 +38,20 @@ class Parser {
         //var parser = JSON.parse(json)
         var r = {}
         for (var p in parser) {
+                // initialize r.ingredients and r.directions as arrays
                 if (multi.some((v, i) => {return p == v })) {
                     r[p] = []
-                $(parser[p], html).each((i, el) => {
+                    $(parser[p], html).each((i, el) => {
                         r[p].push($(el).text().trim().replace(/[\s]{2,}/g, ' '))
-                })
-            } else {
+                    })
+                } else {
                     r[p] = $(parser[p], html).text().trim().replace(/[\s]{2,}/g, ' ')
-            }
+                }
 
-            }
+        }
+        // add the url here so that it can be used later
+        r["url"] = url
+        console.log("parsed recipe", r)
         return r
     }
     /**

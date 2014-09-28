@@ -6,6 +6,7 @@ module.exports = (grunt) ->
 				dest: "./build"
 				options:
 					module: "amd"
+					cwd: "./build"
 					target: "es5"
 					sourceMap: "true"
 					# sourceRoot:
@@ -50,5 +51,5 @@ module.exports = (grunt) ->
 	grunt.loadNpmTasks 'grunt-typescript'
 	grunt.loadNpmTasks 'grunt-contrib-watch'
 	grunt.loadNpmTasks 'grunt-contrib-jade'
-	grunt.registerTask 'default', ['watch']
+	grunt.registerTask 'default', ['jade', 'typescript', 'watch']
 	# grunt.registerTask 'default', ['typescript:server', 'typescript:client', 'typescript:commonAMD', 'typescript:common','watch']

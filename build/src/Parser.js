@@ -38,6 +38,9 @@
                     r[p] = $(parser[p], html).text().trim().replace(/[\s]{2,}/g, ' ');
                 }
             }
+
+            r["url"] = url;
+            console.log("parsed recipe", r);
             return r;
         };
 

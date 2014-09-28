@@ -1,0 +1,21 @@
+div.recipe
+	h1= title
+	p.subtitle= author
+	p= desc
+	p time:
+		span= time
+
+	p serves
+		span= serves
+	.ingredients
+		h2 ingredients
+		ul
+			each i in ingredients
+				li= i
+	.directions
+		h2 directions
+		ol
+			each d in directions
+				li=d
+
+

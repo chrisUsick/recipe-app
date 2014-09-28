@@ -1,9 +1,9 @@
-# store recipe on editRecipeForm submit
+
 # create `#recipe` page
 # create `all recipes` page
 # create search functionallity
 # BUG clear omnibox form on submit
-
+# store recipe on editRecipeForm submit
 
 # CORS request
   _ get jquery

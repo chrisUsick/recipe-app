@@ -4,6 +4,7 @@ class Nav {
     private selector: string
     private views = {}
     private currentView: Element
+    private callbacks = {}
 
     constructor(selector: string) {
         // @selector the selector for all divs which represent a separate view
@@ -14,6 +15,8 @@ class Nav {
         $(this.selector).each((i, e) => {
             var id = "#" + e.getAttribute("id")
             this.views[id] = e
+            // initialize the callback array for each view
+            this.callbacks[id] = []
             // if there is a hash in the url
             //location.hash shouldn't be null but just to be safe keep it in condidtional
             if (hash != "" && hash != null) {
@@ -41,12 +44,18 @@ class Nav {
         $(window).on("hashchange", (e) => {
             
             var hash = e.target['location'].hash
-            console.log(hash, this.views)
+            console.log(hash, this.callbacks, this.views)
             // hide old view
             $(this.currentView).hide()
             // set new view and show
             this.currentView = this.views[hash]
             $(this.currentView).show()
+            // run all the callbacks for this location
+            if (this.callbacks[hash]) {
+                this.callbacks[hash].forEach((fn) => {
+                    fn()
+                })
+            }
 
         })
     }
@@ -61,6 +70,9 @@ class Nav {
         } else {
             return;
         }
+    }
+    addCallback(location: string, cb: Function) {
+        this.callbacks[location].push(cb)
     }
 }
 
