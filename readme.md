@@ -10,9 +10,9 @@ recipe Site has a simple set of functionallity:
 
 # install
 git clone https://github.com/chrisUsick/recipe-app.git
-cd recipe-app
-npm install
-grunt 
+cd recipe-app  
+npm install  
+grunt   
 
 Then go to chrome and load the unpackaged extension
 
