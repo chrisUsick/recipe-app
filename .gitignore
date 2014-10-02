@@ -1,7 +1,9 @@
-build/**/*.js
-build/**/*.map
+build/**
+
+# needed because of my compilation process
 src/*.js
 src/*.map
+
 obj/
 *.suo
 *.njsproj
