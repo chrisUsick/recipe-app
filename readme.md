@@ -10,11 +10,13 @@ recipe Site has a simple set of functionallity:
 
 # install
 git clone https://github.com/chrisUsick/recipe-app.git
-cd recipe-app  
-npm install  
-grunt   
+- cd recipe-app  
+- npm install  
+- grunt build
 
-Then go to chrome and load the unpackaged extension
+Then go to chrome and load the unpackaged extension. 
+When running the app it returns many errors when pa
+When parsing a site it returns a lot of errors in the console. These errors are just not being able to load the images with the html so they can be ignored.
 
 # competing products
 - the main competitor is probably evernote
