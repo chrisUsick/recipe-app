@@ -7,3 +7,6 @@ obj/
 *.njsproj
 *.dat
 node_modules/
+*.sublime-project
+*.sublime-workspace
+

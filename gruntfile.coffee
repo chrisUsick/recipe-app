@@ -52,4 +52,5 @@ module.exports = (grunt) ->
 	grunt.loadNpmTasks 'grunt-contrib-watch'
 	grunt.loadNpmTasks 'grunt-contrib-jade'
 	grunt.registerTask 'default', ['jade', 'typescript', 'watch']
+	grunt.registerTask 'build', ['jade', 'typescript']
 	# grunt.registerTask 'default', ['typescript:server', 'typescript:client', 'typescript:commonAMD', 'typescript:common','watch']
