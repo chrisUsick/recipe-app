@@ -18,6 +18,8 @@ Then go to chrome and load the unpackaged extension.
 When running the app it returns many errors when pa
 When parsing a site it returns a lot of errors in the console. These errors are just not being able to load the images with the html so they can be ignored.
 
+## zip for chrome store
+7z a app.zip build/ js/ css/ fonts/ manifest.json
 # competing products
 - the main competitor is probably evernote
 - the recipe sites that this extension will be scraping are also competitors

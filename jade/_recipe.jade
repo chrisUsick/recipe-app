@@ -1,12 +1,9 @@
 div.recipe
 	h1= title
-	p.subtitle= author
+	p.subtitle Author #{author}
 	p= desc
-	p time:
-		span= time
-
-	p serves
-		span= serves
+	p time: #{time}
+	p serves #{serves}
 	.ingredients
 		h2 ingredients
 		ul

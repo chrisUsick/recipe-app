@@ -13,3 +13,6 @@ node_modules/
 *.sublime-workspace
 *.crx
 *.pem
+
+*.png
+*.zip

@@ -1,6 +1,6 @@
 {
-  "name": "recipe recorder",
-  "description": "",
+  "name": "Recipe Rappele",
+  "description": "Read your recipes in an ad-free site and save them offline",
   "version": "0.1",
   "manifest_version": 2,
   "app": {
