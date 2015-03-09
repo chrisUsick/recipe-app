@@ -1,6 +1,6 @@
 # Recipe Site
 A chrome extension to make using and reusing recipies simple
-
+[View in the store](https://chrome.google.com/webstore/detail/recipe-rappele/beehilhanimicdpnhamfhlkgobngoede).
 # key features
 recipe Site has a simple set of functionallity:
 - scrape a recipe sites to get only the recipe
